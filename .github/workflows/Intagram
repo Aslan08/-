@@ -1,0 +1,21 @@
+import requests
+from time import sleep
+text = input('Введите название логина:')
+sleep(2)
+print('Здравствуй '+text)
+response = requests.get('https://www.instagram.com/'+text+'?__a=1')
+a = response.json()
+print('Ваше имя '+a['graphql']['user']['full_name'])
+print('Ваша данные '+a['graphql']['user']['full_name'])
+print('Количество опубликованных постов '+str(a['graphql']['user']['edge_owner_to_timeline_media']['count']))
+posts = a['graphql']['user']['edge_owner_to_timeline_media']['edges']
+
+posts_text = ''
+for i in posts:
+	url = i['node']['shortcode']
+	like = i['node']['edge_liked_by']['count']
+	sleep(1)
+	print('Количество лайков на фото '+str(url)+' '+ str(like))
+	for j in text:
+		sleep(1)
+
